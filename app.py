@@ -40,11 +40,15 @@ LABEL_ENCODER_FILE = 'label_encoder_nn.pkl'
 FEATURE_NAMES_FILE = 'feature_names_nn.pkl'
 # *******************************************************
 
-try:
+def load_model():
     model = joblib.load(MODEL_FILE)
     scaler = joblib.load(SCALER_FILE)
-    le = joblib.load(LABEL_ENCODER_FILE)
+    label_encoder = joblib.load(LABEL_ENCODER_FILE)
     feature_names = joblib.load(FEATURE_NAMES_FILE)
+    return model, scaler, label_encoder, feature_names
+
+try:
+    model, scaler, le, feature_names = load_model()
     print("✅ โหลดโมเดลและเครื่องมือสำเร็จ! Server พร้อมใช้งาน")
 except Exception as e:
     print(f"❌ Error: ไม่สามารถโหลดไฟล์โมเดลได้ ตรวจสอบว่าไฟล์ .pkl อยู่ครบหรือไม่: {e}")
