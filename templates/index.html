@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เครื่องมือประเมินความเสี่ยงทางภาษี (จากข้อมูล USA)</title>
+    <title>เครื่องมือประเมินความเสี่ยงทางภาษี</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         body {
@@ -156,7 +156,11 @@
             </div>
         </div>
 
-        <div id="training-section">
+        <button type="button" id="toggle-training-btn" class="step-btn secondary-btn">
+            📊 ดูรายงานผลการฝึก AI
+        </button>
+
+        <div id="training-section" style="display: none;">
             <h2>📊 รายงานผลการฝึกโมเดล AI</h2>
             <p><strong>โมเดลที่ถูกเลือก:</strong> <span id="final-model-name">...</span> (Accuracy: <span id="final-model-acc">...</span>)</p>
             <table id="training-table">

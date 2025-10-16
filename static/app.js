@@ -157,3 +157,67 @@ function loadTrainingData() {
 }
 
 document.addEventListener('DOMContentLoaded', loadTrainingData);
+// app.js (แทนที่บรรทัดสุดท้ายด้วยโค้ดด้านล่างนี้)
+
+function loadTrainingData() {
+    fetch(TRAINING_API_URL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const tableBody = document.querySelector('#training-table tbody');
+                tableBody.innerHTML = '';
+                data.training_runs.forEach(run => {
+                    const row = tableBody.insertRow();
+                    if (run.status === "Selected (Final)") {
+                        row.classList.add('selected-model');
+                    }
+                    row.insertCell().innerHTML = `<strong>${run.model_name}</strong><br><small>${run.features}</small>`;
+                    row.insertCell().textContent = run.parameters;
+                    row.insertCell().textContent = run.accuracy;
+                    row.insertCell().textContent = run.status;
+                });
+                const final = data.final_model;
+                document.getElementById('final-model-name').textContent = final.model_name;
+                document.getElementById('final-model-acc').textContent = final.accuracy;
+            } else {
+                console.error("Failed to load training data:", data.error);
+                document.getElementById('training-section').innerHTML = "<p style='color:red;'>ไม่สามารถโหลดรายงานผลการฝึก AI ได้</p>";
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching training data:', error);
+            document.getElementById('training-section').innerHTML = "<p style='color:red;'>เกิดข้อผิดพลาดในการเชื่อมต่อเพื่อดึงรายงาน AI</p>";
+        });
+}
+
+// *********************************************************
+// ส่วนที่ถูกแก้ไข/เพิ่ม: รวม Event Listener สำหรับปุ่ม Toggle และการโหลดข้อมูลเริ่มต้น
+// *********************************************************
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. เรียกใช้ฟังก์ชันโหลดข้อมูล AI ทันทีที่หน้าเว็บโหลด
+    loadTrainingData(); 
+    
+    // 2. ผูก Event Listener เข้ากับปุ่ม Toggle
+    const toggleBtn = document.getElementById('toggle-training-btn');
+    const trainingSection = document.getElementById('training-section');
+
+    // ตรวจสอบว่าปุ่มและส่วนแสดงผลมีอยู่จริง (เพื่อป้องกัน error)
+    if (toggleBtn && trainingSection) {
+        // กำหนดสถานะเริ่มต้นให้ซ่อนไว้ (เผื่อ HTML ไม่ได้กำหนด style="display: none;")
+        trainingSection.style.display = 'none'; 
+        
+        toggleBtn.addEventListener('click', () => {
+            // ตรวจสอบสถานะปัจจุบัน
+            const isHidden = trainingSection.style.display === 'none';
+            
+            if (isHidden) {
+                trainingSection.style.display = 'block'; // แสดง
+                toggleBtn.innerHTML = '🔼 ซ่อนรายงานผลการฝึก AI';
+            } else {
+                trainingSection.style.display = 'none'; // ซ่อน
+                toggleBtn.innerHTML = '📊 ดูรายงานผลการฝึก AI';
+            }
+        });
+    }
+});

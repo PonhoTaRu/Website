@@ -255,9 +255,11 @@ button[type="submit"]:active {
 }
 
 #training-section {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #e0e7ef;
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 #training-table {
@@ -282,4 +284,19 @@ button[type="submit"]:active {
 .selected-model {
     background-color: #eaffea !important; 
     font-weight: bold;
+}
+
+.secondary-btn {
+    background-color: #ecf0f1; /* สีเทาอ่อน */
+    color: #2c3e50;
+    border: 1px solid #bdc3c7;
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+    background-color: #bdc3c7;
 }
