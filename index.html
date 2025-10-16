@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องมือประเมินความเสี่ยงทางภาษี</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #f6f8fa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 40px;
+        }
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 40px 36px;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3a4b;
+            margin-bottom: 28px;
+            font-size: 1.5em;
+        }
+        #taxRiskForm {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .input-group {
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 8px;
+        }
+        input[type="number"], select, input[type="text"][readonly] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1em;
+            background: #f9fafb;
+            transition: border 0.2s;
+        }
+        input[type="number"]:focus, select:focus {
+            border-color: #4f8cff;
+            outline: none;
+            background: #fff;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px 0;
+            background: linear-gradient(90deg, #4f8cff 0%, #38b6ff 100%);
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+            transition: background 0.2s;
+            margin-top: 14px;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(90deg, #38b6ff 0%, #4f8cff 100%);
+        }
+        #result {
+            margin-top: 32px;
+            font-size: 1.1em;
+            font-weight: 500;
+            padding: 22px 18px;
+            border-radius: 8px;
+            border: 1px solid #e0e7ef;
+            background: #f5faff;
+            min-height: 48px;
+            color: #2d3a4b;
+            text-align: center;
+        }
+        .risk-high {
+            background: #ffeaea;
+            color: #c0392b;
+            border-color: #ffb3b3;
+        }
+        .risk-medium {
+            background: #fffbe6;
+            color: #b8860b;
+            border-color: #ffe299;
+        }
+        .risk-low {
+            background: #eaffea;
+            color: #218838;
+            border-color: #b3ffb3;
+        }
+        .risk-error {
+            background: #fff0f0;
+            color: #b71c1c;
+            border-color: #ffbdbd;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 18px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ประเมินความเสี่ยงทางภาษีเบื้องต้น</h1>
+        <form id="taxRiskForm" autocomplete="off">
+            <div class="input-group">
+                <label for="Revenue">
+                    1. รายได้ (Revenue):
+                    <span class="help-icon" data-tooltip="ยอดรวมรายได้ทั้งหมดของบริษัทที่ยังไม่หักค่าใช้จ่าย">?</span>
+                </label>
+                <input type="number" id="Revenue" value="1500000" step="0.01" min="0" required>
+                <div id="revenue-feedback" class="benchmark-feedback"></div>
+            </div>
+            <div class="input-group">
+                <label for="Expenses">2. ค่าใช้จ่าย (Expenses):</label>
+                <input type="number" id="Expenses" value="900000" step="0.01" min="0" required>
+            </div>
+            <div class="input-group">
+                <label for="ProfitDisplay">4. กำไรที่คำนวณได้ (Profit):</label>
+                <input type="text" id="ProfitDisplay" value="600,000.00" readonly style="background: #e9ecef;">
+            </div>
+            <div class="input-group">
+                <label for="Industry">
+                    3. อุตสาหกรรม (Industry):
+                    <span class="help-icon" data-tooltip="ประเภทธุรกิจหลักของบริษัท ใช้ในการเปรียบเทียบความเสี่ยง">?</span>
+                </label>
+                <select id="Industry" required>
+                    <option value="Finance">Finance</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                </select>
+            </div>
+            <button type="submit">ประเมินความเสี่ยง</button>
+        </form>
+        <div id="result">
+            <div id="risk-meter-display">
+                <p>ผลการประเมินจะแสดงที่นี่...</p>
+            </div>
+        </div>
+
+        <div id="training-section">
+            <h2>📊 รายงานผลการฝึกโมเดล AI</h2>
+            <p><strong>โมเดลที่ถูกเลือก:</strong> <span id="final-model-name">...</span> (Accuracy: <span id="final-model-acc">...</span>)</p>
+            <table id="training-table">
+                <thead>
+                    <tr>
+                        <th>โมเดล / Features</th>
+                        <th>Parameters หลัก</th>
+                        <th>Accuracy</th>
+                        <th>สถานะ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

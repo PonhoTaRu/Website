@@ -1,0 +1,285 @@
+/* ====================================
+   Global Reset & Fonts
+   ==================================== */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* ====================================
+   Container & Typography
+   ==================================== */
+.container {
+    width: 90%;
+    max-width: 700px;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 15px;
+}
+
+/* ====================================
+   Form & Input Styling
+   ==================================== */
+#taxRiskForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 30px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 0.95em;
+}
+
+input[type="number"],
+select,
+input[type="text"][readonly] {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+    background: #f9fafb;
+}
+
+input[type="number"]:focus,
+select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* ปุ่มสำหรับ Submit */
+button[type="submit"] {
+    grid-column: 1 / -1;
+    padding: 12px 25px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 15px;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+button[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+/* ====================================
+   Result Display
+   ==================================== */
+#result {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: 1px solid #e0e7ef;
+    background: #f5faff;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* การตกแต่งสีตามผลลัพธ์ */
+.risk-high {
+    background-color: #fddddd;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+.risk-medium {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+}
+.risk-low {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+.risk-error {
+    background-color: #e2e3e5;
+    border-color: #c8ced3;
+    color: #383d41;
+}
+
+/* Risk Meter Display */
+#risk-meter-display {
+    padding: 15px 0;
+    border-radius: 6px;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+.risk-message {
+    font-size: 0.9em;
+    font-weight: 500;
+    margin-top: 10px;
+    color: #555;
+}
+
+/* สีพื้นหลังของ #result เมื่อยังไม่มีผลลัพธ์ */
+#result {
+    background: #f5faff;
+    border-color: #e0e7ef;
+}
+
+/* สี risk meter display */
+.risk-high #risk-meter-display {
+    background: #c0392b;
+    color: #fff;
+}
+.risk-medium #risk-meter-display {
+    background: #d35400;
+    color: #fff;
+}
+.risk-low #risk-meter-display {
+    background: #27ae60;
+    color: #fff;
+}
+
+/* ====================================
+   Responsive Design
+   ==================================== */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        margin: 20px;
+        padding: 20px;
+    }
+    #taxRiskForm {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* เพิ่มส่วนนี้เข้าไปใน CSS ของคุณ */
+.help-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    border: 1px solid #4f8cff;
+    border-radius: 50%;
+    color: #4f8cff;
+    font-size: 0.8em;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative; /* สำคัญสำหรับการวางตำแหน่ง Tooltip */
+    margin-left: 5px;
+}
+
+.help-icon:hover {
+    background-color: #4f8cff;
+    color: #fff;
+}
+
+/* Tooltip Popup Style */
+.help-icon::after {
+    content: attr(data-tooltip); /* ดึงข้อความมาจาก attribute data-tooltip */
+    position: absolute;
+    bottom: 150%; /* ให้แสดงอยู่ด้านบนไอคอน */
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 200px;
+    padding: 8px 12px;
+    background-color: #34495e;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 400;
+    text-align: left;
+    white-space: normal; /* อนุญาตให้ข้อความขึ้นบรรทัดใหม่ได้ */
+    opacity: 0; /* ซ่อนไว้ก่อน */
+    visibility: hidden;
+    transition: opacity 0.3s;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.help-icon:hover::after {
+    opacity: 1; /* แสดงขึ้นเมื่อวางเมาส์ */
+    visibility: visible;
+}
+
+/* เพิ่มส่วนนี้เข้าไปใน CSS ของคุณ */
+.benchmark-feedback {
+    font-size: 0.8em;
+    font-weight: 500;
+    padding-top: 5px;
+}
+.benchmark-feedback.low {
+    color: #e74c3c; /* สีแดง: ต่ำกว่าค่าเฉลี่ย */
+}
+.benchmark-feedback.high {
+    color: #2ecc71; /* สีเขียว: สูงกว่าค่าเฉลี่ย */
+}
+.benchmark-feedback.neutral {
+    color: #f39c12; /* สีส้ม: ใกล้เคียงค่าเฉลี่ย */
+}
+
+#training-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e7ef;
+}
+
+#training-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+#training-table th, #training-table td {
+    border: 1px solid #d1d5db;
+    padding: 10px;
+    text-align: left;
+}
+
+#training-table th {
+    background-color: #f6f8fa;
+    font-weight: 600;
+    color: #34495e;
+}
+
+.selected-model {
+    background-color: #eaffea !important; 
+    font-weight: bold;
+}
