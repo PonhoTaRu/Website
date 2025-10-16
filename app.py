@@ -8,32 +8,32 @@ from flask_cors import CORS
 # ----------------------------------------------------
 training_results = [
     {
-        "model_name": "Random Forest - Full Features",
-        "features": "Revenue, Expenses, Industry, Compliance_Violations, Tax_Compliance_Ratio...",
-        "parameters": "n_estimators=100, max_depth=10",
-        "accuracy": "92.5%",
+        "model_name": "Neural Network (MLPClassifier)",
+        "features": "Full (14 features incl. 4 One-Hot Industries)",
+        "parameters": "Layers: 3, Activation: ReLU, Optimizer: Adam",
+        "accuracy": "94.1%",
         "status": "Selected (Final)"
     },
     {
-        "model_name": "Random Forest - Minimized",
-        "features": "Revenue, Expenses, Tax_Compliance_Ratio",
-        "parameters": "n_estimators=50, max_depth=5",
-        "accuracy": "88.1%",
-        "status": "Discarded"
+        "model_name": "Random Forest Classifier",
+        "features": "Full (14 features)",
+        "parameters": "n_estimators=100, max_depth=10",
+        "accuracy": "92.8%",
+        "status": "Discarded (Lower Accuracy)"
     },
     {
         "model_name": "Logistic Regression",
-        "features": "Full Features",
-        "parameters": "solver='liblinear'",
-        "accuracy": "75.0%",
-        "status": "Discarded"
+        "features": "Revenue, Profit, Tax_Compliance_Ratio ONLY",
+        "parameters": "Solver: liblinear",
+        "accuracy": "78.5%",
+        "status": "Discarded (Low Performance)"
     }
 ]
 
 # กำหนดโมเดลที่ถูกเลือก
 final_model_info = training_results[0]
 
-# ******* แก้ไขชื่อไฟล์โมเดลและไฟล์ Preprocessing *******
+# ******* 1. แก้ไขชื่อไฟล์โมเดลให้ชี้ไปที่ชุด Neural Network (NN) *******
 MODEL_FILE = 'tax_risk_model_nn.pkl'
 SCALER_FILE = 'scaler_nn.pkl'
 LABEL_ENCODER_FILE = 'label_encoder_nn.pkl'
