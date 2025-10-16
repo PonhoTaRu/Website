@@ -1,6 +1,6 @@
 import joblib
 import pandas as pd
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
 # ----------------------------------------------------
@@ -47,8 +47,8 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route('/')
-def home():
-    return "<h1>Tax Risk API Status: Running</h1><p>Please send a POST request to /predict with JSON data.</p>"
+def serve_frontend():
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
