@@ -33,11 +33,18 @@ training_results = [
 # กำหนดโมเดลที่ถูกเลือก
 final_model_info = training_results[0]
 
+# ******* แก้ไขชื่อไฟล์โมเดลและไฟล์ Preprocessing *******
+MODEL_FILE = 'tax_risk_model_nn.pkl'
+SCALER_FILE = 'scaler_nn.pkl'
+LABEL_ENCODER_FILE = 'label_encoder_nn.pkl'
+FEATURE_NAMES_FILE = 'feature_names_nn.pkl'
+# *******************************************************
+
 try:
-    model = joblib.load('tax_risk_model.pkl')
-    scaler = joblib.load('scaler.pkl')
-    le = joblib.load('label_encoder.pkl')
-    feature_names = joblib.load('feature_names.pkl')
+    model = joblib.load(MODEL_FILE)
+    scaler = joblib.load(SCALER_FILE)
+    le = joblib.load(LABEL_ENCODER_FILE)
+    feature_names = joblib.load(FEATURE_NAMES_FILE)
     print("✅ โหลดโมเดลและเครื่องมือสำเร็จ! Server พร้อมใช้งาน")
 except Exception as e:
     print(f"❌ Error: ไม่สามารถโหลดไฟล์โมเดลได้ ตรวจสอบว่าไฟล์ .pkl อยู่ครบหรือไม่: {e}")
