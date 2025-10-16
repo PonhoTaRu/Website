@@ -1,6 +1,6 @@
 // app.js
 
-const RENDER_PUBLIC_URL = 'https://[ชื่อโปรเจกต์ของคุณ].onrender.com'; // **รอใส่ URL จริง**
+const RENDER_PUBLIC_URL = 'https://tax-risk-predictor.onrender.com/'; // **รอใส่ URL จริง**
 
 const API_URL = RENDER_PUBLIC_URL + '/predict';
 const TRAINING_API_URL = RENDER_PUBLIC_URL + '/training-info';
