@@ -54,19 +54,23 @@ document.getElementById('taxRiskForm').addEventListener('submit', function(event
 
     const form = event.target;
 
-    const inputData = {
-        "Revenue": parseFloat(form.Revenue.value),
-        "Expenses": parseFloat(form.Expenses.value),
-        "Tax_Liability": 50000.0,
-        "Tax_Paid": 45000.0,
-        "Late_Filings": 0.0,
-        "Compliance_Violations": 0.0,
-        "Industry": form.Industry.value,
-        "Profit": parseFloat(form.Revenue.value) - parseFloat(form.Expenses.value),
-        "Tax_Compliance_Ratio": 0.9,
-        "Audit_Findings": 1.0,
-        "Audit_to_Tax_Ratio": 0.0
-    };
+    // ในไฟล์ app.js (ส่วน inputData ภายใน Event Listener ของ submit)
+
+        const inputData = {
+    "Revenue": parseFloat(form.Revenue.value),
+    "Expenses": parseFloat(form.Expenses.value),
+    "Tax_Liability": 50000.0,
+    "Tax_Paid": 45000.0,
+    // ********* แก้ไข 2 บรรทัดนี้ *********
+    "Late_Filings": parseFloat(form.LateFilings.value) || 0.0,
+    "Compliance_Violations": parseFloat(form.ComplianceViolations.value) || 0.0,
+    // **********************************
+    "Industry": form.Industry.value,
+    "Profit": parseFloat(form.Revenue.value) - parseFloat(form.Expenses.value),
+    "Tax_Compliance_Ratio": 0.9,
+    "Audit_Findings": 1.0,
+    "Audit_to_Tax_Ratio": 0.0
+};
 
     fetch(API_URL, {
         method: 'POST',
