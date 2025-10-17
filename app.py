@@ -3,9 +3,6 @@ import pandas as pd
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
-# ----------------------------------------------------
-# ข้อมูลจำลองผลลัพธ์การฝึก (Training Results)
-# ----------------------------------------------------
 training_results = [
     {
         "model_name": "Neural Network (MLPClassifier)",
@@ -33,12 +30,10 @@ training_results = [
 # กำหนดโมเดลที่ถูกเลือก
 final_model_info = training_results[0]
 
-# ******* 1. แก้ไขชื่อไฟล์โมเดลให้ชี้ไปที่ชุด Neural Network (NN) *******
 MODEL_FILE = 'tax_risk_model_nn.pkl'
 SCALER_FILE = 'scaler_nn.pkl'
 LABEL_ENCODER_FILE = 'label_encoder_nn.pkl'
 FEATURE_NAMES_FILE = 'feature_names_nn.pkl'
-# *******************************************************
 
 def load_model():
     model = joblib.load(MODEL_FILE)
